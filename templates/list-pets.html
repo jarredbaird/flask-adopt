@@ -1,0 +1,28 @@
+{% extends 'base.html' %}{% block title %}Pet List{% endblock %} {% block
+content %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Pet List</h1>
+  </div>
+</div>
+<div class="card-columns">
+  {% for pet in pets %}
+  <div class="card text-white bg-secondary mb-3">
+    <a href="/{{pet.pet_id}}">
+      <img class="card-img-top" src="{{pet.photo_url}}" alt="pet image" />
+    </a>
+    <div class="card-body">
+      <h5 class="card-title">
+        {{pet.name}} {% if pet.available %}
+        <span class="badge badge-primary">Available</span>
+        {% else %}
+        <span class="badge badge-danger">Not available</span>
+        {% endif %}
+      </h5>
+      <p class="card-text">Species: {{pet.species}}</p>
+      <a href="/pets/adopt" class="btn btn-info">Adopt {{pet.name}}</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %} {% block title %}{{pet.name}} the {{pet.species}}{%
+endblock %} {% block content %}
+<div class="jumbotron">
+<h1>{{pet.name}} the {{pet.species}}</h1>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card" style="width: 30rem">
+        <img class="card-img-top" src="{{pet.photo_url}}" alt="pet photo" />
+        <div class="card-body">
+          <h5 class="card-title">{{pet.name}}</h5>
+          <p class="card-text">{{pet.notes}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Species: {{pet.species}}</li>
+          <li class="list-group-item">Age: {{pet.age}}</li>
+          <li class="list-group-item">
+            Availability: {% if pet.available %}
+            <span class="badge badge-primary">Available</span>
+            {% else %}
+            <span class="badge badge-danger">Not available</span>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col">
+        <h3>Edit {{pet.name}}</h3>
+        <form method="POST">
+          {{ form.hidden_tag() }} {% for field in form if
+          field.widget.input_type != 'hidden'%}
+          <div class="form-group">
+            {{field.label}} {{field(class_="form-control")}} {% for err in
+            field.errors %}
+            <small class="form-text text-danger"> {{err}} </small>
+            {% endfor %}
+          </div>
+          {% endfor %}
+          <div class="btn-group">
+            <button class="btn btn-success btn-lg">Save Changes</button>
+            <a href="/" class="btn btn-info btn-lg">Back to Pets</a>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}
